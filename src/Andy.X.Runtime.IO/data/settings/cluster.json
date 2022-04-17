@@ -1,0 +1,9 @@
+﻿{
+  "Name": "default",
+  "Runtimes": [
+    {
+      "Hostname": "127.0.0.1",
+      "Ports": [ "6641", "6640" ]
+    }
+  ]
+}
