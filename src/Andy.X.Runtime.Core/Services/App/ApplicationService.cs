@@ -20,7 +20,7 @@ namespace Andy.X.Runtime.Core.Services.App
             Console.Write("      ####         "); Console.ForegroundColor = generalColor; Console.WriteLine("Licensed under the Apache License 2.0.  See https://bit.ly/3DqVQbx");
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("    ###  ###");
-            Console.Write("  ###      ###     "); Console.ForegroundColor = generalColor; Console.WriteLine("Andy X is an open-source distributed streaming platform designed to deliver the best performance possible for high-performance data pipelines, streaming analytics, streaming between microservices and data integrations.");
+            Console.Write("  ###      ###     "); Console.ForegroundColor = generalColor; Console.WriteLine("Andy X is an open-source distributed streaming platform designed to deliver the best performance possible for high-performance data pipelines, streaming analytics, streaming between microservices and data integrations. Runtime will enable running Andy X Extensions and Plugins.");
             Console.WriteLine("");
 
             ExposePorts();

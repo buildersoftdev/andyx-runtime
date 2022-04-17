@@ -17,7 +17,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Andy.X.Runtime.Core\Andy.X.Runtime.Core.csproj" />
+	  <ProjectReference Include="..\Andy.X.Runtime.Core\Andy.X.Runtime.Core.csproj" />
 	</ItemGroup>
 
 </Project>
