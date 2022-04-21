@@ -32,4 +32,8 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Andy.X.Runtime.Model\Andy.X.Runtime.Model.csproj" />
+  </ItemGroup>
+
 </Project>

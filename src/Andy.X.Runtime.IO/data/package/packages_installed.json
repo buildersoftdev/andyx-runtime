@@ -1,10 +1,10 @@
 ﻿[
   {
-    "Name": "Buildersoft.Webhook",
-    "Description": "Webhook by Buildersoft",
+    "Name": "Second.Hello.World",
+    "Description": "First extension by Buildersoft",
     "Package": {
-      "Id": "Buildersoft.Webhook",
-      "Version": "1.0.0-preview",
+      "Id": "Second.Hello.World",
+      "Version": "1.0.0",
       "Type": "Extension",
       "AcceptLicense": true
     },

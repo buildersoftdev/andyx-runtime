@@ -8,10 +8,11 @@ namespace Andy.X.Runtime.Core.Abstractions.Extension
 
         bool InvokeExtension(Model.Packages.Package package, object messageContent);
 
-        Task<bool> StartAsync();
-        Task<bool> StopAsync();
+        bool Start();
+        bool Stop();
 
-        Task<bool> Unsubscribe();
+        
+        bool Unsubscribe();
 
         bool IsRunning();
     }
