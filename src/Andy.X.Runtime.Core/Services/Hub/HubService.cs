@@ -1,6 +1,5 @@
-﻿using Andy.X.Runtime.Core.Abstractions.Services;
+﻿using Andy.X.Runtime.Core.Abstractions.Hub;
 using Andy.X.Runtime.Core.Configurations;
-using Andy.X.Runtime.Model.Packages;
 using Microsoft.Extensions.Logging;
 
 namespace Andy.X.Runtime.Core.Services.Hub
@@ -16,13 +15,13 @@ namespace Andy.X.Runtime.Core.Services.Hub
             _artifactConfiguration = artifactConfiguration;
         }
 
-        public bool DownloadArtifcat(Package package)
+        public bool DownloadArtifcat(Model.Packages.Package package)
         {
             _logger.LogError("Implement - DownloadArtifcat");
             return false;
         }
 
-        public bool InstallArtifact(Package package, string artifactBinaryLocation)
+        public bool InstallArtifact(Model.Packages.Package package, string artifactBinaryLocation)
         {
             _logger.LogError("Implement - InstallArtifact");
             return false;

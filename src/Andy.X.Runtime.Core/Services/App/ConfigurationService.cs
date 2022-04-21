@@ -9,25 +9,26 @@ namespace Andy.X.Runtime.Core.Services.App
     {
         private readonly ILogger<ConfigurationService> _logger;
 
-        private ClusterConfiguration? clusterConfiguration;
-        private AndyXConfiguration? andyXConfiguration;
-        private List<ArtifactConfiguration>? artifactConfigurations;
-        private List<PackageConfiguration>? packageConfigurations;
+        private bool isConfigured;
+
+        public ClusterConfiguration ClusterConfiguration { get; private set; }
+        public AndyXConfiguration AndyXConfiguration { get; private set; }
+        public List<ArtifactConfiguration> ArtifactConfigurations { get; private set; }
+        public List<PackageConfiguration> PackageConfigurations { get; private set; }
+        public List<PackageConfiguration> PackageInstalled { get; private set; }
 
         public ConfigurationService(ILogger<ConfigurationService> logger)
         {
             _logger = logger;
 
-            BindAllConfigurationFiles();
-        }
+            isConfigured = true;
 
-        private void BindAllConfigurationFiles()
-        {
-            _logger.LogInformation($"Importing settings");
-            clusterConfiguration = ImportClusterConfiguration();
-            andyXConfiguration = ImportAndyXConfiguration();
-            artifactConfigurations = ImportArtifactConfiguration();
-            packageConfigurations = ImportPackageConfiguration();
+            // Bind all configuration files
+            ClusterConfiguration = ImportClusterConfiguration()!;
+            AndyXConfiguration = ImportAndyXConfiguration()!;
+            ArtifactConfigurations = ImportArtifactConfiguration()!;
+            PackageConfigurations = ImportPackageConfiguration()!;
+            PackageInstalled = ImportPackageInstalled()!;
         }
 
         private ClusterConfiguration? ImportClusterConfiguration()
@@ -41,24 +42,24 @@ namespace Andy.X.Runtime.Core.Services.App
                 return cluster;
             }
 
+            isConfigured = false;
             _logger.LogError($"Import failed! 'cluster.json' is missing at location '{clusterConfigFile}'");
             return null;
         }
-
         private AndyXConfiguration? ImportAndyXConfiguration()
         {
             string andyxConfigFile = AppLocations.GetAndyXConfigurationFile();
-            if (File.Exists(andyxConfigFile)) 
+            if (File.Exists(andyxConfigFile))
             {
                 var andyx = JsonSerializer.Deserialize<AndyXConfiguration>(File.ReadAllText(andyxConfigFile));
                 _logger.LogInformation($"Andy X settings has been imported");
                 return andyx;
             }
 
+            isConfigured = false;
             _logger.LogError($"Import failed! 'andyx_config.json' is missing at location '{andyxConfigFile}'");
             return null;
         }
-
         private List<ArtifactConfiguration>? ImportArtifactConfiguration()
         {
             string artifactConfigFile = AppLocations.GetArtifactsConfigurationFile();
@@ -69,13 +70,13 @@ namespace Andy.X.Runtime.Core.Services.App
                 return artifact;
             }
 
+            isConfigured = false;
             _logger.LogError($"Import failed! 'artifacts_config.json' is missing at location '{artifactConfigFile}'");
             return null;
         }
-
         private List<PackageConfiguration>? ImportPackageConfiguration()
         {
-            string packageConfigFile = AppLocations.GetPackagesConfigurationFile();
+            string packageConfigFile = AppLocations.GetPackageConfigurationFile();
             if (File.Exists(packageConfigFile))
             {
                 var package = JsonSerializer.Deserialize<List<PackageConfiguration>>(File.ReadAllText(packageConfigFile));
@@ -84,8 +85,29 @@ namespace Andy.X.Runtime.Core.Services.App
                 return package;
             }
 
+            isConfigured = false;
             _logger.LogError($"Import failed! 'packages_config.json' is missing at location '{packageConfigFile}'");
             return null;
+        }
+        private List<PackageConfiguration>? ImportPackageInstalled()
+        {
+            string packageConfigFile = AppLocations.GetPackageInstalledFile();
+            if (File.Exists(packageConfigFile))
+            {
+                var package = JsonSerializer.Deserialize<List<PackageConfiguration>>(File.ReadAllText(packageConfigFile));
+                _logger.LogInformation($"Packages installed have been imported, found {package!.Count} artifacts");
+
+                return package;
+            }
+
+            isConfigured = false;
+            _logger.LogError($"Import failed! 'packages_installed.json' is missing at location '{packageConfigFile}'");
+            return null;
+        }
+
+        public bool IsConfigured()
+        {
+            return isConfigured;
         }
     }
 }

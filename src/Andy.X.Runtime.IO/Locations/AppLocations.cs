@@ -16,7 +16,7 @@
 
         public static string PackagesDirectory()
         {
-            return Path.Combine(DataDirectory(), "packages");
+            return Path.Combine(DataDirectory(), "package");
         }
 
         public static string SettingsDirectory()
@@ -52,10 +52,16 @@
             return Path.Combine(SettingsDirectory(), "cluster.json");
         }
 
-        public static string GetPackagesConfigurationFile()
+        public static string GetPackageConfigurationFile()
         {
             return Path.Combine(SettingsDirectory(), "packages_config.json");
         }
+
+        public static string GetPackageInstalledFile()
+        {
+            return Path.Combine(PackagesDirectory(), "packages_installed.json");
+        }
+
         #endregion
 
     }
